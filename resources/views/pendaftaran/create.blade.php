@@ -1,4 +1,4 @@
-@extends('layout/main')
+@extends('layouts.app')
       
 @section('title', 'Form Pendaftaran PKM')
 
@@ -83,8 +83,7 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Tambah Data</button>
-                    
+                    <button type="submit" class="btn btn-primary">Tambah Data</button>   
             </form>      
         </div>
     </div>

@@ -14,7 +14,7 @@
 Route::get('/', 'PagesController@home');
 
 //Pendaftaran
-Route::get('/pendaftaran', 'DaftarController@index');
+Route::get('/pendaftaran', 'DaftarController@index')->name('pendaftaran');
 Route::get('/pendaftaran/create', 'DaftarController@create');
 Route::post('/pendaftaran/create', 'DaftarController@store');
 Route::get('/pendaftaran/{pendaftaran}', 'DaftarController@show');
