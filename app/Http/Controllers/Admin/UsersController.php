@@ -22,11 +22,17 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        //array untuk roles non admin
+        $nonadmin = ['Dosen', 'Mahasiswa'];
+
+        //index untuk menampilkan roles non admin
+        $users = User::whereHas('roles', static function($q) use ($nonadmin){
+            return $q->whereIn('name', $nonadmin);
+        })->get();
         return view('admin.users.index', compact('users'));
     }
 
-   
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -60,13 +66,13 @@ class UsersController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        
+
         if($user->save()){
             $request->session()->flash('success', $user->name . 'has been updated');
         }else{
             $request->session()->flash('error', 'There was an error updating the user');
         }
-        
+
 
         return redirect() ->route('admin.users.index');
     }
@@ -82,7 +88,7 @@ class UsersController extends Controller
         if(Gate::denies('delete-users')){
             return redirect(route('admin.users.index'));
         }
-        
+
         $user->roles()->detach();
         $user->delete();
 
