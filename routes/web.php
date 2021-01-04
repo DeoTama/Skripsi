@@ -23,7 +23,14 @@ Route::get('/pendaftaran/{pendaftaran}/edit', 'DaftarController@edit');
 Route::patch('/pendaftaran/{pendaftaran}', 'DaftarController@update');
 
 
-Route::get('/pengumuman', 'PagesController@pengumuman');
+//Pengumuman
+Route::get('/pengumuman', 'PengumumanController@index')->name('pengumuman');
+Route::get('/pengumuman/create', 'PengumumanController@create');
+Route::post('/pengumuman/create', 'PengumumanController@store');
+Route::delete('/pengumuman/{pengumuman}', 'PengumumanController@destroy');
+Route::get('/pengumuman/{pengumuman}/edit', 'PengumumanController@edit');
+Route::patch('/pengumuman/{pengumuman}', 'PengumumanController@update');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

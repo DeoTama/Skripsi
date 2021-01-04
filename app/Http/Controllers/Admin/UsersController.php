@@ -23,7 +23,7 @@ class UsersController extends Controller
     public function index()
     {
         //array untuk roles non admin
-        $nonadmin = ['Dosen', 'Mahasiswa'];
+        $nonadmin = ['Dosen', 'User'];
 
         //index untuk menampilkan roles non admin
         $users = User::whereHas('roles', static function($q) use ($nonadmin){

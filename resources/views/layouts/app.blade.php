@@ -59,7 +59,7 @@
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
-                                    </a>
+                                    </a> 
 
                                     @can('manage-users')
                                     <a class="dropdown-item" href="{{ route('admin.users.index')}}">
@@ -81,6 +81,7 @@
             @include('partials.alerts ')
             @yield('content')
             @yield('container')
+            
         </main>
     </div>
 </body>

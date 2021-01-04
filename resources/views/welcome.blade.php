@@ -99,7 +99,7 @@
                     </a>
                     @endcan
                     <a href="{{route('pendaftaran')}}">Pendaftaran</a>
-                    <a href="https://laravel-news.com">Pengumuman</a>
+                    <a href="{{route('pengumuman')}}">Pengumuman</a>
                     <a href="https://blog.laravel.com">Review</a>
                     <a href="https://nova.laravel.com">Monev</a>
                 @endif
