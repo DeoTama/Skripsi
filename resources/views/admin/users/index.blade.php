@@ -8,7 +8,7 @@
                 <div class="card-header">Users</div>
 
                 <div class="card-body">
-                  
+
                     <table class="table">
                         <thead>
                         <tr>
@@ -20,9 +20,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($users as $index => $user)
                             <tr>
-                                <th scope="row">{{ $user ->id }}</th>
+                                <th scope="row">{{ $index + 1 }}</th>
                                 <td>{{ $user ->name }}</td>
                                 <td>{{ $user ->email }}</td>
                                 <td>{{ implode(',', $user ->roles() ->get() ->pluck('name') ->toArray()) }}</td>
