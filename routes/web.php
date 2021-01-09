@@ -31,6 +31,15 @@ Route::delete('/pengumuman/{pengumuman}', 'PengumumanController@destroy');
 Route::get('/pengumuman/{pengumuman}/edit', 'PengumumanController@edit');
 Route::patch('/pengumuman/{pengumuman}', 'PengumumanController@update');
 
+//Upload Gambar di Halaman Monev
+Route::get('/upload', 'UploadController@upload');
+//Route::get('/upload', 'UploadController@upload');
+Route::post('/upload/proses', 'UploadController@proses_upload');
+
+//Hapus Gambar
+Route::get('/upload/hapus/{id}', 'UploadController@hapus');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
