@@ -15,7 +15,6 @@ class CreatePendaftaransTable extends Migration
     {
         Schema::create('pendaftarans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
             $table->char('nim' , 8)->unique();
             $table->string('email' , 50)->unique();
             $table->string('telpon' , 20);
@@ -25,6 +24,8 @@ class CreatePendaftaransTable extends Migration
             $table->string('anggota' , 255);
             $table->string('skimpkm' , 50);
             $table->string('judulpkm' , 255);
+            $table->string('proposal', 255);
+            $table->string('status', 255);
             
             $table->timestamps();
         });

@@ -8,14 +8,17 @@
         <div class="col-12">
             <h1 class="mt-3">Form Pendaftaran PKM</h1>
                 
-            <form method= "POST" action="/pendaftaran/create">
+            <form method= "POST" action="/pendaftaran/create" enctype="multipart/form-data">
                 @csrf
-                    <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama" name="nama" value="{{old('nama')}}">
-                        @error('nama')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror 
+                <input type="hidden" name="status" value="Belum Diverifikasi">
+                <div class="form-group">
+                        <label for="mahasiswa">Mahasiswa</label>
+                        <select class="form-control" name="mahasiswa" required="">
+                            <option value="">Nama Ketua</optiom>
+                            @foreach ($mahasiswa as $mhs)
+                            <option value="{{$mhs->id}}">{{$mhs->name}}</option>
+                            @endforeach
+                            </select>
                     </div>
                     <div class="form-row">
                     <div class="form-group col-md-4">
@@ -41,26 +44,30 @@
                         @enderror
                     </div>
                     </div>
-                    <div class="form-group">      
+                    <div class="form-row">
+                    <div class="form-group col-md-4">      
                         <label for="jurusan">Jurusan</label>
                         <input type="text" class="form-control @error('jurusan') is-invalid @enderror " id="jurusan" placeholder="Masukkan Jurusan" name="jurusan" value="{{old('jurusan')}}">
                         @error('jurusan')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="prodi">Prodi</label>
-                        <input type="text" class="form-control @error('prodi') is-invalid @enderror " id="prodi" placeholder="Masukkan Prodi" name="prodi" value="{{old('prodi')}}">
-                        @error('prodi')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <select class="form-control" name="prodi" required="">
+                            <option value="">Pilih Program Studi</optiom>
+                            @foreach ($prodi as $prd)
+                            <option value="{{$prd->nama_prodi}}">{{$prd->nama_prodi}}</option>
+                            @endforeach
+                            </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="angkatan">Angkatan</label>
                         <input type="text" class="form-control @error('angkatan') is-invalid @enderror " id="angkatan" placeholder="Masukkan Angkatan" name="angkatan" value="{{old('angkatan')}}">
                         @error('angkatan')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
                     </div>
                     <div class="form-group">
                         <label for="anggota">Anggota</label>
@@ -70,11 +77,13 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="skimpkm">SKIM-PKM</label>
-                        <input type="text" class="form-control @error('skimpkm') is-invalid @enderror " id="skimpkm" placeholder="Masukkan SKIM-PKM" name="skimpkm" value="{{old('skimpkm')}}">
-                        @error('skimpkm')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <label for="skimpkm">Jenis PKM</label>
+                        <select class="form-control" name="skimpkm" required="">
+                            <option value="">Pilih jenis PKM</optiom>
+                            @foreach ($pkm as $pkm)
+                            <option value="{{$pkm->jenis_pkm}}">{{$pkm->jenis_pkm}}</option>
+                            @endforeach
+                            </select>
                     </div>
                     <div class="form-group">
                         <label for="judulpkm">Judul PKM</label>
@@ -83,6 +92,10 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+					<div class="form-group">
+						<b>File Proposal</b><br/>
+						<input type="file" name="proposal">
+					</div>
                     <button type="submit" class="btn btn-primary">Tambah Data</button>   
             </form>      
         </div>

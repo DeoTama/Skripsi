@@ -19,7 +19,7 @@ class PengumumanController extends Controller
         
         return view('pengumuman.index', ['pengumuman' => $pengumuman]);
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

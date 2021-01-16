@@ -13,21 +13,21 @@
                 @csrf
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama" name="nama" value="{{ $pendaftaran->nama }}">
+                        <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama" name="nama" value="{{ $pengumuman->nama }}">
                         @error('nama')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror 
                     </div>
                     <div class="form-group">
                         <label for="skimpkm">SKIM-PKM</label>
-                        <input type="text" class="form-control @error('skimpkm') is-invalid @enderror " id="skimpkm" placeholder="Masukkan SKIM-PKM" name="skimpkm" value="{{ $pendaftaran->skimpkm }}">
+                        <input type="text" class="form-control @error('skimpkm') is-invalid @enderror " id="skimpkm" placeholder="Masukkan SKIM-PKM" name="skimpkm" value="{{ $pengumuman->skimpkm }}">
                         @error('skimpkm')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="judulpkm">Judul PKM</label>
-                        <input type="text" class="form-control @error('judulpkm') is-invalid @enderror " id="judulpkm" placeholder="Masukkan Judul PKM" name="judulpkm" value="{{ $pendaftaran->judulpkm }}">
+                        <input type="text" class="form-control @error('judulpkm') is-invalid @enderror " id="judulpkm" placeholder="Masukkan Judul PKM" name="judulpkm" value="{{ $pengumuman->judulpkm }}">
                         @error('judulpkm')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

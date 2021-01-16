@@ -21,26 +21,26 @@
 					{{ csrf_field() }}
  
 					<div class="form-group">
-						<b>File Gambar</b><br/>
+						<b>Foto Kegiatan</b><br/>
 						<input type="file" name="file">
 					</div>
  
 					<div class="form-group">
-						<b>Keterangan</b>
+						<b>Logbook Kegiatan</b>
 						<textarea class="form-control" name="keterangan"></textarea>
 					</div>
  
 					<input type="submit" value="Upload" class="btn btn-primary">
 				</form>
 				
-				<h4 class="my-5">Data</h4>
+				<h4 class="my-5">List Kegiatan</h4>
  
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th width="1%">File</th>
-							<th>Keterangan</th>
-							<th width="1%">OPSI</th>
+							<th width="1%">Foto</th>
+							<th>Kegiatan</th>
+							<th width="1%">Opsi</th>
 						</tr>
 					</thead>
 					<tbody>

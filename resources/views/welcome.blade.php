@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SIM-PKM</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -101,7 +101,7 @@
                     <a href="{{route('pendaftaran')}}">Pendaftaran</a>
                     <a href="{{route('pengumuman')}}">Pengumuman</a>
                     <a href="https://blog.laravel.com">Review</a>
-                    <a href="https://nova.laravel.com">Monev</a>
+                    <a href="{{route('monev')}}">Monev</a>
                 @endif
                 </div>
             </div>

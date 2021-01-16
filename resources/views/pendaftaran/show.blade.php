@@ -23,12 +23,13 @@
                     <th style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 100px;" scope="col">Anggota</th>
                     <th style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 100px;" scope="col">SKIM PKM</th>
                     <th style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 100px;" scope="col">Judul PKM </th>
+                    <th style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 100px;" scope="col">Proposal </th>
                     <th style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 100px;" scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{$pendaftaran->nama}}</td>
+                    <td style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 120px;">{{$pendaftaran->mahasiswa->name}}</td>
                         <td>{{$pendaftaran->nim}}</td>
                         <td>{{$pendaftaran->email}}</td>
                         <td>{{$pendaftaran->telpon}}</td>
@@ -38,6 +39,7 @@
                         <td style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 250px;">{{$pendaftaran->anggota}}</td>
                         <td>{{$pendaftaran->skimpkm}}</td>
                         <td style="text-align:center;word-wrap: break-word;min-width: 100px;max-width: 200px;">{{$pendaftaran->judulpkm}}</td>
+                        <td><a href="{{url ('/pendaftaran/'.$pendaftaran->id.'/download')}}"> {{$pendaftaran->proposal}}</a> </td>
                         <td>
                             
                             <a href="{{ $pendaftaran->id }}/edit" class="btn btn-primary">Edit</a>

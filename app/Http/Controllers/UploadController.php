@@ -10,7 +10,7 @@ class UploadController extends Controller
 {
 	public function upload(){
 		$gambar = Gambar::get();
-        return view('upload',['gambar' => $gambar]);
+        return view('monev.index',['gambar' => $gambar]);
         
        // public function upload(){
            // $gambar = Gambar::get();
@@ -19,7 +19,7 @@ class UploadController extends Controller
  
 	public function proses_upload(Request $request){
 		$this->validate($request, [
-			'file' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+			'file' => 'required|file|mimes:jpeg,png,jpg,pdf,doc,docx|max:2048',
 			'keterangan' => 'required',
 		]);
  
@@ -29,8 +29,8 @@ class UploadController extends Controller
 		$nama_file = time()."_".$file->getClientOriginalName();
  
       	        // isi dengan nama folder tempat kemana file diupload
-		$tujuan_upload = 'data_file';
-		$file->move($tujuan_upload,$nama_file);
+		$tujuan_upload = 'public/data_file';
+		$file->storeAs($tujuan_upload,$nama_file);
  
 		Gambar::create([
 			'file' => $nama_file,
@@ -49,6 +49,12 @@ class UploadController extends Controller
         Gambar::where('id',$id)->delete();
      
         return redirect()->back();
+    }
+
+    public function download(Gambar $gambar){
+        
+        $path = storage_path ('app/public/data_file/'.$gambar->file);
+        return response()->download($path, $gambar->file);
     }
     
 }

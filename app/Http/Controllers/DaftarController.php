@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Pendaftaran;
+use App\Role;
+use App\Prodi;
+use App\User;
+use App\Pkm;
 
 class DaftarController extends Controller
 {
@@ -16,7 +21,7 @@ class DaftarController extends Controller
     public function index()
     {
         
-       /** $daftar = DB::table('pendaftarans')->get(); */
+       
         
         $daftar = Pendaftaran::all();
         
@@ -30,7 +35,12 @@ class DaftarController extends Controller
      */
     public function create()
     {
-        return view('pendaftaran.create');
+        $prodi = Prodi::all();
+        $pkm = Pkm::all();
+        $mahasiswa = User::doesntHave('pendaftaranMahasiswa')->whereHas('roles', function ($query) {
+            $query->where('name','user');
+        })->get();
+        return view('pendaftaran.create', ['prodi'=> $prodi, 'mahasiswa'=> $mahasiswa,'pkm'=>$pkm]);
     }
 
     /**
@@ -41,33 +51,10 @@ class DaftarController extends Controller
      */
     public function store(Request $request)
     {
-      //  $pendaftaran = new Pendaftaran;
-      //  $pendaftaran->nama = $request->nama;
-       // $pendaftaran->nim = $request->nim;
-       // $pendaftaran->email = $request->email;
-       // $pendaftaran->telpon = $request->telpon;    
-       // $pendaftaran->jurusan = $request->jurusan;    
-       // $pendaftaran->prodi = $request->prodi;    
-       // $pendaftaran->angkatan = $request->angkatan;   
-       // $pendaftaran->skimpkm = $request->skimpkm;
-       // $pendaftaran->judulpkm = $request->judulpkm;
-        
-        //$pendaftaran->save();
-        
-        //Pendaftaran::create([
-          //  'nama' => $request->nama,
-         //   'nim' => $request->nim,
-         //   'email' => $request->email,
-         //   'telpon' => $request->telpon,
-        //    'jurusan' => $request->jurusan,
-        //    'prodi' => $request->prodi,
-        //    'angkatan' => $request->angkatan,
-        //    'skimpkm' => $request->skimpkm,
-        //    'judulpkm' => $request->judulpkm
-      //  ]);    
         
             $request->validate([
-                'nama' => 'required',
+                'proposal' => 'required',
+                'mahasiswa' => 'required',
                 'nim' => 'required|size:8',
                 'email' => 'required',
                 'telpon' => 'required',
@@ -78,8 +65,27 @@ class DaftarController extends Controller
                 'skimpkm' => 'required',
                 'judulpkm' => 'required',
             ]);
-        
-        Pendaftaran::create($request->all());
+
+            $file = $request->file('proposal');
+            $nama = rand().$file->getClientOriginalName();
+            $path = 'public/proposal/';
+            $file->storeAs($path,$nama);
+
+        Pendaftaran::create([
+                'proposal' => $nama,
+                'nim' => $request->nim,
+                'email' => $request->email,
+                'telpon' => $request->telpon,
+                'jurusan' => $request->jurusan,
+                'prodi' => $request->prodi,
+                'angkatan' => $request->angkatan,
+                'anggota' => $request->anggota,
+                'skimpkm' => $request->skimpkm,
+                'judulpkm' => $request->judulpkm,
+                'status' => $request->status,
+                'mahasiswa_id' => $request->mahasiswa,
+
+        ]);
         return redirect('/pendaftaran')->with('status', 'Data Pendaftar PKM Berhasil Ditambahkan!');
             
     }
@@ -103,8 +109,23 @@ class DaftarController extends Controller
      */
     public function edit(Pendaftaran $pendaftaran)
     {
-        return view('pendaftaran.edit', compact('pendaftaran'));
+        $dosen = User::whereHas('roles', function ($query) {
+            $query->where('name','dosen');
+        })->get();
+        $mahasiswa = User::doesntHave('pendaftaranMahasiswa')->whereHas('roles', function ($query) {
+            $query->where('name','user');
+        })->get();
+        $prodi = Prodi::all();
+        return view('pendaftaran.edit', ['pendaftaran'=> $pendaftaran, 'dosen'=>$dosen, 'mahasiswa'=>$mahasiswa, 'prodi'=>$prodi]);
     }
+
+    //public function editAdmin(Pendaftaran $pendaftaran)
+    
+    //{
+
+       // $role = Role::where('')
+       // return view('pendaftaran.edit', compact('pendaftaran'));
+    //}
 
     /**
      * Update the specified resource in storage.
@@ -117,7 +138,7 @@ class DaftarController extends Controller
     {
         
         $request->validate([
-            'nama' => 'required',
+            'mahasiswa' => 'required',
             'nim' => 'required|size:8',
             'email' => 'required',
             'telpon' => 'required',
@@ -132,7 +153,7 @@ class DaftarController extends Controller
         
         Pendaftaran::where('id', $pendaftaran->id)
             ->update([
-                'nama' => $request->nama,
+
                 'nim' => $request->nim,
                 'email' => $request->email,
                 'telpon' => $request->telpon,
@@ -141,7 +162,9 @@ class DaftarController extends Controller
                 'angkatan' => $request->angkatan,
                 'anggota' => $request->anggota,
                 'skimpkm' => $request->skimpkm,
+                'user_id' => $request->dosen,
                 'judulpkm' => $request->judulpkm
+
             ]);
         return redirect('/pendaftaran')->with('status', 'Data Pendaftar PKM Berhasil Diubah!');
     }
@@ -157,4 +180,11 @@ class DaftarController extends Controller
         Pendaftaran::destroy($pendaftaran->id);
         return redirect('/pendaftaran')->with('status', 'Data Pendaftar PKM Berhasil Dihapus!');
     }
+
+    public function download(Pendaftaran $pendaftaran)
+    {
+        
+        return response()->download(storage_path('app/public/proposal/').$pendaftaran->proposal);
+
+    } 
 }

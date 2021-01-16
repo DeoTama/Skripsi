@@ -57,4 +57,11 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function pendaftaran(){
+        return $this->hasMany('App\Pendaftaran', 'user_id');
+    }
+    public function pendaftaranMahasiswa(){
+        return $this->hasMany('App\Pendaftaran', 'mahasiswa_id'); 
+    }   
 }
