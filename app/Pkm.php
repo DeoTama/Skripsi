@@ -9,7 +9,7 @@ class Pkm extends Model
     protected $table = 'pkms';
     protected $fillable = ['jenis_pkm'];
 
-    public function pkm(){
-        return $this->hasOne('App\Pkm');
+    public function review(){
+        return $this->hasMany('App\Review');
     }
 }

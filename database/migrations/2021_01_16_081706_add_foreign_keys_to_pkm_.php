@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePkmTable extends Migration
+class AddForeignKeysToPkm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePkmTable extends Migration
      */
     public function up()
     {
-        Schema::create('pkm', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+        Schema::table('pkms', function (Blueprint $table) {
+            $table->foreignId('review_id')->nullable()->references('id')->on('reviews');
         });
     }
 
@@ -26,7 +25,8 @@ class CreatePkmTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pkm');
+        Schema::table('pkms', function (Blueprint $table) {
+            //
+        });
     }
 }
-
