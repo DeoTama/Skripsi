@@ -13,7 +13,9 @@
                         <select class="form-control" name="skimpkm" required="">
                             <option value="">Pilih jenis PKM</optiom>
                             @foreach ($pkm as $pkm)
-                            <option value="{{$pkm->jenis_pkm}}">{{$pkm->jenis_pkm}}</option>
+                            <option value="{{$pkm->jenis_pkm}}"
+                            @if($pkm->review_id->contains($review->id)) selected @endif>
+                            {{$pkm->jenis_pkm}}</option>
                             @endforeach
                             </select>
                     </div>
@@ -30,28 +32,19 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Gagasan (orisinalitas, unik dan manfaat masa depan)</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    @foreach ($review as $rvw)
+      <th scope="row">{{ $loop->iteration }}</th>
+      <td>{{ $rvw->kriteria }}</td>
+      <td>{{ $rvw->bobot }}</td>
+      <td>{{ $rvw->keterangan }}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    @endforeach
   </tbody>
 </table>
-         
-                    
+
+
         </div>
      </div>
  </div>
-@endsection  
+@endsection
 

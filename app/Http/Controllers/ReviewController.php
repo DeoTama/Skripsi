@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pkm;
+use App\Review;
 class ReviewController extends Controller
 {
     /**
@@ -15,7 +16,8 @@ class ReviewController extends Controller
     {
         $review = Review::all();
         $pkm = Pkm::all();
-        return view('review.index', ['pkm' => $pkm]); 
+        return view('review.index', ['pkm' => $pkm]);
+        return view('review.index', ['pkm' => $pkm, 'review' => $review]);
     }
 
     /**
@@ -25,7 +27,7 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -48,6 +50,21 @@ class ReviewController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function showByReview() {
+        $pkmkc = ['1', '2', '3', '4', '5', '6', '7'];
+        $pkmp = ['8', '9', '10', '11', '12', '13', '14', '6', '7'];
+        $pkmk = ['15', '16', '17', '18', '19', '6', '7'];
+        $pkmm = ['20', '21', '22', '23', '24', '6', '7'];
+        $pkmt = ['25', '26', '27', '28', '29', '6', '7'];
+
+        if($pkm->jenis_pkm('PKM-KC')) {
+            $users = Pkm::whereHas('reviews', static function($q) use ($pkmkc){
+                return $q->whereIn('id', $pkmkc);
+            })->get();
+            return view('review.index', compact('review'));
+        }
     }
 
     /**
